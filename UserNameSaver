@@ -1,0 +1,54 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class UserNameSaver {
+
+    public static void main(String[] args) {
+        // Scanner for reading input from the user
+        Scanner scanner = new Scanner(System.in);
+
+        // Ask for the user's name
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        // Save the name to a text file
+        saveNameToFile(name);
+
+        // Read and display all names from the file
+        System.out.println("\nNames saved in the file:");
+        readNamesFromFile();
+        
+        scanner.close();
+    }
+
+    // Method to save the name to a text file
+    public static void saveNameToFile(String name) {
+        try {
+            // Create a BufferedWriter to write to the file
+            BufferedWriter writer = new BufferedWriter(new FileWriter("usernames.txt", true));
+            writer.write(name);
+            writer.newLine();  // Add a newline after each name
+            writer.close();
+            System.out.println("Name saved successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the name.");
+            e.printStackTrace();
+        }
+    }
+
+    // Method to read names from the file and display them
+    public static void readNamesFromFile() {
+        try {
+            // Create a BufferedReader to read from the file
+            BufferedReader reader = new BufferedReader(new FileReader("usernames.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }
+    }
+}
